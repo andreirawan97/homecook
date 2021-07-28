@@ -1,0 +1,24 @@
+h1 {
+  @apply text-4xl;
+}
+
+.bg-primary {
+  background-color: rgba(245, 191, 79);
+}
+
+.bg-page {
+  background-color: rgba(250, 248, 245);
+}
+
+.text-primary {
+  color: rgba(245, 191, 79);
+}
+
+.border-primary {
+  --tw-border-opacity: 1;
+  border-color: rgba(245, 191, 79, var(--tw-border-opacity));
+}
+
+.logo-title {
+  @apply text-2xl font-bold;
+}
