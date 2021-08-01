@@ -1,9 +1,14 @@
 import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 
-import { HomePage } from "./scenes";
+import MainNavigator from "./routes/MainNavigator";
 
 function App() {
-  return <HomePage />;
+  return (
+    <Router>
+      <MainNavigator />
+    </Router>
+  );
 }
 
 export default App;

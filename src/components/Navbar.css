@@ -1,0 +1,9 @@
+.navbar {
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .navbar {
+    align-items: flex-start;
+  }
+}
