@@ -28,7 +28,7 @@ export default function HomePage() {
   };
 
   const onClickRecipe = (recipeId: string) => {
-    history.replace(`${PAGE_NAME.recipeDetail}${recipeId}`);
+    history.push(`${PAGE_NAME.recipeDetail}${recipeId}`);
   };
 
   useEffect(() => {

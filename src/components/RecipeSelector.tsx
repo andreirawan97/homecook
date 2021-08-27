@@ -1,8 +1,13 @@
 import { BookmarkIcon } from "@heroicons/react/outline";
 import { BookmarkIcon as BookmarkFilledIcon } from "@heroicons/react/solid";
-import { useState } from "react";
-import { NoImage } from "../assets";
+import { MouseEvent, useState } from "react";
 
+import {
+  addSavedRecipe,
+  deleteSavedRecipe,
+  isInSavedRecipes,
+} from "../helpers/storageHelper";
+import { NoImage } from "../assets";
 import { Recipe } from "../types/globalTypes";
 
 type RecipeCardProps = {
@@ -18,9 +23,19 @@ type Props = {
 function RecipeCard(props: RecipeCardProps) {
   let { recipe, onClickRecipe } = props;
 
-  const [isRecipeSaved, setRecipeSaved] = useState(false);
+  const [isRecipeSaved, setRecipeSaved] = useState(
+    isInSavedRecipes(String(recipe.id))
+  );
 
-  const onClickSaveRecipe = () => {
+  const onClickSaveRecipe = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+
+    if (isRecipeSaved) {
+      deleteSavedRecipe(String(recipe.id));
+    } else {
+      addSavedRecipe(String(recipe.id));
+    }
+
     setRecipeSaved(!isRecipeSaved);
   };
 
@@ -54,7 +69,7 @@ function RecipeCard(props: RecipeCardProps) {
           </div>
         </div>
 
-        <div className="mb-2" onClick={onClickSaveRecipe}>
+        <div className="mb-2 z-10" onClick={onClickSaveRecipe}>
           {isRecipeSaved ? (
             <BookmarkFilledIcon className="h-7 w-7 text-gray-500" />
           ) : (

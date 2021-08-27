@@ -105,3 +105,7 @@ export type RandomRecipesParam = {
 export type RandomRecipesResponse = {
   recipes: Array<Recipe>;
 };
+
+// Storage Types
+
+export type SavedRecipes = Array<string>;
