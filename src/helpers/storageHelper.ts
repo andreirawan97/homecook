@@ -1,7 +1,7 @@
 import { STORAGE_KEYS } from "../constants/storage";
 import { SavedRecipes } from "../types/globalTypes";
 
-function getSavedRecipes() {
+export function getSavedRecipes(): Array<string> {
   return JSON.parse(localStorage.getItem(STORAGE_KEYS.savedRecipes) ?? "[]");
 }
 

@@ -1,7 +1,7 @@
 import { Switch, Route, useLocation } from "react-router-dom";
 
 import { PAGE_NAME } from "../constants/navigation";
-import { HomePage, RecipeDetailPage } from "../scenes";
+import { HomePage, RecipeDetailPage, SavedRecipesPage } from "../scenes";
 
 export default function App() {
   const location = useLocation();
@@ -13,6 +13,11 @@ export default function App() {
         exact
         path={`${PAGE_NAME.recipeDetail}:recipeId`}
         component={RecipeDetailPage}
+      />
+      <Route
+        exact
+        path={`${PAGE_NAME.savedRecipes}`}
+        component={SavedRecipesPage}
       />
     </Switch>
   );

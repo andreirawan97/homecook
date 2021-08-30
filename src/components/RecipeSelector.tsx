@@ -41,8 +41,10 @@ function RecipeCard(props: RecipeCardProps) {
 
   return (
     <div
-      className="flex flex-1 flex-col shadow rounded-3xl pt-3 pb-3 pl-6 pr-6 mr-5 mb-5 max-w-lg md:mr-0 cursor-pointer"
+      className="flex flex-1 flex-col shadow rounded-3xl pt-3 pb-3 pl-6 pr-6 mr-5 mb-5 md:mr-0 cursor-pointer"
       style={{
+        maxWidth: 310,
+        minWidth: 310,
         backgroundColor: "rgba(246, 246, 248)",
       }}
       onClick={() => onClickRecipe && onClickRecipe(String(recipe.id))}

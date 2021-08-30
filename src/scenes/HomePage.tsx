@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import { Navbar, RecipeSelector, Searchbar } from "../components";
+import { NavPage } from "../components/Navbar";
 import { PAGE_NAME } from "../constants/navigation";
 import { URLBuilder } from "../helpers/URLBuilder";
 import {
@@ -31,13 +32,19 @@ export default function HomePage() {
     history.push(`${PAGE_NAME.recipeDetail}${recipeId}`);
   };
 
+  const onClickNav = (selectedPage: NavPage) => {
+    if (selectedPage === "savedRecipes") {
+      history.push(`${PAGE_NAME.savedRecipes}`);
+    }
+  };
+
   useEffect(() => {
     getRandomRecipes();
   }, []);
 
   return (
     <div className="flex flex-1 flex-col h-screen">
-      <Navbar />
+      <Navbar onClickNav={onClickNav} />
 
       <div className="flex md:flex-col pt-6 pl-12 pr-12 mb-6 md:pl-3 md:pr-3 md:mb-3">
         <h1 className="font-bold">Recipes</h1>
