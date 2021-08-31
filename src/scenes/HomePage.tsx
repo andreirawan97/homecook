@@ -1,21 +1,36 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { Navbar, RecipeSelector, Searchbar } from "../components";
 import { NavPage } from "../components/Navbar";
 import { PAGE_NAME } from "../constants/navigation";
 import { URLBuilder } from "../helpers/URLBuilder";
+import { Action } from "../types/actions";
 import {
+  SearchParam,
   RandomRecipesParam,
   RandomRecipesResponse,
   Recipe,
 } from "../types/globalTypes";
+import { RecipeState } from "../types/state";
 
 export default function HomePage() {
   const history = useHistory();
+  const dispatch = useDispatch<Dispatch<Action>>();
 
-  const [currentRecipes, setCurrentRecipes] = useState<Array<Recipe>>([]);
+  const randomRecipesData = useSelector<
+    RecipeState,
+    RecipeState["randomRecipes"]
+  >((state) => state.randomRecipes);
+  const setRandomRecipesData = (randomRecipes: Array<Recipe>) =>
+    dispatch({
+      type: "SET_RANDOM_RECIPES",
+      payload: randomRecipes,
+    });
+
+  const [loadingRandomRecipes, setLoadingRandomRecipes] = useState(true);
 
   const getRandomRecipes = () => {
     const urlParam: RandomRecipesParam = {
@@ -24,7 +39,20 @@ export default function HomePage() {
 
     axios.get(URLBuilder("randomRecipes", urlParam)).then((res) => {
       const data = res.data as RandomRecipesResponse;
-      setCurrentRecipes(data.recipes);
+      setRandomRecipesData(data.recipes);
+      setLoadingRandomRecipes(false);
+    });
+  };
+
+  const onSearchRecipe = (searchQuery: string) => {
+    const urlParam: SearchParam = {
+      query: searchQuery,
+    };
+
+    axios.get(URLBuilder("search", urlParam)).then((res) => {
+      const data = res.data as RandomRecipesResponse;
+
+      console.log(data);
     });
   };
 
@@ -39,7 +67,13 @@ export default function HomePage() {
   };
 
   useEffect(() => {
-    getRandomRecipes();
+    if (!randomRecipesData.length) {
+      getRandomRecipes();
+    } else {
+      // If you going back, the loadingRandomRecipes is set to true (which is the default)
+      setLoadingRandomRecipes(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -50,7 +84,7 @@ export default function HomePage() {
         <h1 className="font-bold">Recipes</h1>
 
         <div className="flex-1 md:flex-none md:mt-3 pl-6 md:pl-0">
-          <Searchbar />
+          <Searchbar onSearchRecipe={onSearchRecipe} />
         </div>
       </div>
 
@@ -59,9 +93,10 @@ export default function HomePage() {
       </div>
 
       <div className="flex-1 pl-12 pr-12 md:pl-3 md:pr-3">
+        {loadingRandomRecipes ? <p>Loading...</p> : <></>}
         <RecipeSelector
           onClickRecipe={onClickRecipe}
-          recipes={currentRecipes}
+          recipes={randomRecipesData}
         />
       </div>
     </div>

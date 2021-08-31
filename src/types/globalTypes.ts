@@ -106,6 +106,10 @@ export type RandomRecipesResponse = {
   recipes: Array<Recipe>;
 };
 
+export type SearchParam = {
+  query: string;
+};
+
 // Storage Types
 
 export type SavedRecipes = Array<string>;

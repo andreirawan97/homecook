@@ -1,13 +1,20 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
+import { createStore } from "redux";
+import { Provider as StoreProvider } from "react-redux";
 
+import rootReducer from "./recipeReducers";
 import MainNavigator from "./routes/MainNavigator";
 
 function App() {
+  const store = createStore(rootReducer);
+
   return (
-    <Router>
-      <MainNavigator />
-    </Router>
+    <StoreProvider store={store}>
+      <Router>
+        <MainNavigator />
+      </Router>
+    </StoreProvider>
   );
 }
 

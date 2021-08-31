@@ -1,0 +1,4 @@
+.btn {
+  background-color: rgba(245, 191, 79);
+  @apply rounded-2xl ml-3 px-6;
+}

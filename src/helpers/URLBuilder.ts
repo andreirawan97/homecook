@@ -18,6 +18,10 @@ export function URLBuilder(
       url += `recipes/${recipeId}/information?apiKey=${USED_API_KEY}`;
       break;
     }
+    case "search": {
+      url += `recipes/complexSearch?apiKey=${USED_API_KEY}`;
+      break;
+    }
     default: {
       return "Invalid Endpoint!";
     }

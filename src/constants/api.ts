@@ -3,4 +3,4 @@ export const BASE_URL = "https://api.spoonacular.com/";
 
 export type URLParam = Record<string, unknown>;
 
-export type Endpoint = "randomRecipes" | "recipeDetail";
+export type Endpoint = "randomRecipes" | "recipeDetail" | "search";
