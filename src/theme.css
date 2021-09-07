@@ -34,3 +34,7 @@ h4 {
 .logo-title {
   @apply text-2xl font-bold;
 }
+
+.max-w-recipecard {
+  max-width: 310px;
+}

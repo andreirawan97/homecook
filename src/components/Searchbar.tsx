@@ -1,6 +1,6 @@
 import { Transition } from "@headlessui/react";
 import { SearchIcon } from "@heroicons/react/outline";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 import "./Button.css";
 
@@ -21,18 +21,24 @@ export default function Searchbar(props: Props) {
     onSearchRecipe && searchQuery && onSearchRecipe(searchQuery);
   };
 
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSearch();
+  };
+
   return (
     <div className="flex flex-none flex-row">
       <div className="flex flex-1 flex-row rounded-2xl border border-gray-300 p-3 max-w-xl">
         <SearchIcon className="h-6 w-6 mr-3 text-gray-500" />
 
-        <input
-          value={searchQuery}
-          onChange={onChange}
-          className="w-full bg-transparent"
-          placeholder="Search recipes..."
-          onSubmit={onSearch}
-        />
+        <form className="w-full" onSubmit={onSubmit}>
+          <input
+            value={searchQuery}
+            onChange={onChange}
+            className="w-full bg-transparent"
+            placeholder="Search recipes..."
+          />
+        </form>
       </div>
 
       <Transition

@@ -9,7 +9,6 @@ import { PAGE_NAME } from "../constants/navigation";
 import { URLBuilder } from "../helpers/URLBuilder";
 import { Action } from "../types/actions";
 import {
-  SearchParam,
   RandomRecipesParam,
   RandomRecipesResponse,
   Recipe,
@@ -45,15 +44,16 @@ export default function HomePage() {
   };
 
   const onSearchRecipe = (searchQuery: string) => {
-    const urlParam: SearchParam = {
-      query: searchQuery,
-    };
+    // const urlParam: SearchParam = {
+    //   query: searchQuery,
+    // };
 
-    axios.get(URLBuilder("search", urlParam)).then((res) => {
-      const data = res.data as RandomRecipesResponse;
+    // axios.get(URLBuilder("search", urlParam)).then((res) => {
+    //   const data = res.data as RandomRecipesResponse;
 
-      console.log(data);
-    });
+    //   console.log(data);
+    // });
+    history.push(`${PAGE_NAME.search}?query=${searchQuery}`);
   };
 
   const onClickRecipe = (recipeId: string) => {

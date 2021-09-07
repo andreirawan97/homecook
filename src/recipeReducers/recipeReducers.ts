@@ -3,6 +3,10 @@ import { RecipeState } from "../types/state";
 
 const defaultRecipeState: RecipeState = {
   randomRecipes: [],
+  searchResults: {
+    query: [],
+    results: [],
+  },
 };
 
 export const recipeReducers = (state = defaultRecipeState, action: Action) => {
@@ -11,6 +15,12 @@ export const recipeReducers = (state = defaultRecipeState, action: Action) => {
       return {
         ...state,
         randomRecipes: action.payload,
+      };
+    }
+    case "SET_SEARCH_RESULTS": {
+      return {
+        ...state,
+        searchResults: action.payload,
       };
     }
     default: {

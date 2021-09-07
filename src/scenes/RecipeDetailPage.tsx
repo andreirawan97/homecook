@@ -153,7 +153,7 @@ export default function RecipeDetail() {
                   {recipeData && recipeData.analyzedInstructions.length ? (
                     recipeData?.analyzedInstructions[0].steps.map(
                       (instruction, i) => (
-                        <p className="mb-2">{`${i + 1}. ${
+                        <p key={i} className="mb-2">{`${i + 1}. ${
                           instruction.step
                         }`}</p>
                       )

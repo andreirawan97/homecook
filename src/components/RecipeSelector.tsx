@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BookmarkIcon } from "@heroicons/react/outline";
 import { BookmarkIcon as BookmarkFilledIcon } from "@heroicons/react/solid";
 import { MouseEvent, useState } from "react";
@@ -8,20 +9,34 @@ import {
   isInSavedRecipes,
 } from "../helpers/storageHelper";
 import { NoImage } from "../assets";
-import { Recipe } from "../types/globalTypes";
+import { Recipe, SearchResult } from "../types/globalTypes";
 
-type RecipeCardProps = {
-  recipe: Recipe;
-  onClickRecipe?: (recipeId: string) => void;
-};
+type RecipeCardProps =
+  | {
+      type?: "default";
+      recipe: Recipe;
+      onClickRecipe?: (recipeId: string) => void;
+    }
+  | {
+      type?: "search";
+      recipe: SearchResult;
+      onClickRecipe?: (recipeId: string) => void;
+    };
 
-type Props = {
-  recipes?: Array<Recipe>;
-  onClickRecipe?: (recipeId: string) => void;
-};
+type Props =
+  | {
+      type?: "default";
+      recipes?: Array<Recipe>;
+      onClickRecipe?: (recipeId: string) => void;
+    }
+  | {
+      type?: "search";
+      recipes?: Array<SearchResult>;
+      onClickRecipe?: (recipeId: string) => void;
+    };
 
 function RecipeCard(props: RecipeCardProps) {
-  let { recipe, onClickRecipe } = props;
+  let { recipe, onClickRecipe, type = "default" } = props;
 
   const [isRecipeSaved, setRecipeSaved] = useState(
     isInSavedRecipes(String(recipe.id))
@@ -41,14 +56,14 @@ function RecipeCard(props: RecipeCardProps) {
 
   return (
     <div
-      className="flex flex-1 flex-col shadow rounded-3xl pt-3 pb-3 pl-6 pr-6 mr-5 mb-5 max-w-xs md:mr-0 md:max-w-full cursor-pointer"
+      className="flex flex-1 flex-col shadow rounded-3xl pt-3 pb-3 pl-6 pr-6 mr-5 mb-5 max-w-recipecard md:mr-0 md:max-w-full cursor-pointer"
       style={{
-        minWidth: 320,
+        minWidth: 310,
         backgroundColor: "rgba(246, 246, 248)",
       }}
       onClick={() => onClickRecipe && onClickRecipe(String(recipe.id))}
     >
-      <div className="w-full h-max mb-3">
+      <div className="w-full h-auto mb-3">
         <img className="rounded-lg" src={recipe.image ?? NoImage} alt="" />
       </div>
 
@@ -58,17 +73,21 @@ function RecipeCard(props: RecipeCardProps) {
         className="flex flex-1 flex-row mt-2"
         style={{ alignItems: "flex-end" }}
       >
-        <div className="flex flex-1">
-          <div className="mr-6">
-            <span className="text-gray-600">Serving</span>
-            <p className="font-bold">{recipe.servings}</p>
-          </div>
+        {type === "default" ? (
+          <div className="flex flex-1">
+            <div className="mr-6">
+              <span className="text-gray-600">Serving</span>
+              <p className="font-bold">{recipe.servings}</p>
+            </div>
 
-          <div className="mr-6">
-            <span className="text-gray-600">Cooking Time</span>
-            <p className="font-bold">{recipe.readyInMinutes} minutes</p>
+            <div className="mr-6">
+              <span className="text-gray-600">Cooking Time</span>
+              <p className="font-bold">{recipe.readyInMinutes} minutes</p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="flex flex-1" />
+        )}
 
         <div className="mb-2 z-10" onClick={onClickSaveRecipe}>
           {isRecipeSaved ? (
@@ -83,7 +102,7 @@ function RecipeCard(props: RecipeCardProps) {
 }
 
 export default function RecipeSelector(props: Props) {
-  let { recipes, onClickRecipe } = props;
+  let { recipes, onClickRecipe, type = "default" } = props;
 
   return (
     <div className="flex flex-1 md:flex-row flex-wrap">
@@ -91,6 +110,7 @@ export default function RecipeSelector(props: Props) {
         recipes.map((recipe, i) => (
           <RecipeCard
             key={i}
+            type={type}
             onClickRecipe={(recipeId: string) =>
               onClickRecipe && onClickRecipe(recipeId)
             }

@@ -93,6 +93,13 @@ export type Recipe = {
   spoonacularSourceUrl: string;
 };
 
+export type SearchResult = {
+  id: number;
+  image: string;
+  imageType: string;
+  title: string;
+};
+
 // API Types
 
 export type BasicURLParam = Record<string, unknown>;
@@ -108,6 +115,13 @@ export type RandomRecipesResponse = {
 
 export type SearchParam = {
   query: string;
+};
+
+export type SearchResponse = {
+  number: number;
+  offset: number;
+  results: Array<SearchResult>;
+  totalResults: number;
 };
 
 // Storage Types
