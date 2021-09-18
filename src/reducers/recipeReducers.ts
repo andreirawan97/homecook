@@ -4,7 +4,7 @@ import { RecipeState } from "../types/state";
 const defaultRecipeState: RecipeState = {
   randomRecipes: [],
   searchResults: {
-    query: [],
+    urlParams: [],
     results: [],
   },
 };

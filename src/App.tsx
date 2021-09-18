@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { createStore } from "redux";
 import { Provider as StoreProvider } from "react-redux";
 
-import rootReducer from "./recipeReducers";
+import rootReducer from "./reducers";
 import MainNavigator from "./routes/MainNavigator";
 
 function App() {
