@@ -2,6 +2,7 @@ import axios from "axios";
 import { Dispatch, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { Shuffle as ShuffleIcon } from "react-ionicons";
 
 import { Navbar, RecipeSelector, Searchbar } from "../components";
 import { NavPage } from "../components/Navbar";
@@ -66,6 +67,12 @@ export default function HomePage() {
     }
   };
 
+  const onClickShuffle = () => {
+    setRandomRecipesData([]);
+    setLoadingRandomRecipes(true);
+    getRandomRecipes();
+  };
+
   useEffect(() => {
     if (!randomRecipesData.length) {
       getRandomRecipes();
@@ -88,8 +95,17 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className="flex pl-12 pb-3 md:pl-6 md:pr-6">
+      <div className="flex flex-row items-center pl-12 pb-3 md:pl-6 md:pr-6">
         <p>Don't know what to make? Try these random recipes!</p>
+        <ShuffleIcon
+          style={{
+            marginLeft: 12,
+            cursor: "pointer",
+          }}
+          height="32px"
+          width="32px"
+          onClick={onClickShuffle}
+        />
       </div>
 
       <div className="flex-1 pl-12 pr-12 md:pl-3 md:pr-3">
