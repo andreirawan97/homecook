@@ -45,15 +45,6 @@ export default function HomePage() {
   };
 
   const onSearchRecipe = (searchQuery: string) => {
-    // const urlParam: SearchParam = {
-    //   query: searchQuery,
-    // };
-
-    // axios.get(URLBuilder("search", urlParam)).then((res) => {
-    //   const data = res.data as RandomRecipesResponse;
-
-    //   console.log(data);
-    // });
     history.push(`${PAGE_NAME.search}?query=${searchQuery}`);
   };
 
