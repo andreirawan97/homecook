@@ -44,7 +44,7 @@ export default function SearchPage() {
 
     setLoading(true);
 
-    axios.get(URLBuilder("search", urlParam)).then((res) => {
+    axios.get(URLBuilder("search", { urlParam })).then((res) => {
       const data = res.data as SearchResponse;
 
       setSearchResults(data.results);

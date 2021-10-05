@@ -4,7 +4,7 @@ it("should build the URL successfully", () => {
   const customAPIKey = "123";
   const expectedURL = "https://api.spoonacular.com/recipes/random?apiKey=123";
 
-  const url = URLBuilder("randomRecipes", undefined, customAPIKey);
+  const url = URLBuilder("randomRecipes", { customAPIKey });
 
   expect(url).toBe(expectedURL);
 });
@@ -17,7 +17,7 @@ it("should build the URL successfully with param", () => {
   const expectedURL =
     "https://api.spoonacular.com/recipes/random?apiKey=123&number=1";
 
-  const url = URLBuilder("randomRecipes", urlParam, customAPIKey);
+  const url = URLBuilder("randomRecipes", { urlParam, customAPIKey });
 
   expect(url).toBe(expectedURL);
 });
@@ -29,7 +29,10 @@ it("should build the URL successfully for recipe detail", () => {
   const expectedURL =
     "https://api.spoonacular.com/recipes/1/information?apiKey=123";
 
-  const url = URLBuilder("recipeDetail", null, customAPIKey, recipeId);
+  const url = URLBuilder("recipeDetail", {
+    customAPIKey,
+    recipeIdForRecipeDetail: recipeId,
+  });
 
   expect(url).toBe(expectedURL);
 });
@@ -44,7 +47,7 @@ it("should build the URL successfully with complex param", () => {
   const expectedURL =
     "https://api.spoonacular.com/recipes/random?apiKey=123&number=1&page=3&tags=vegetarian,dessert";
 
-  const url = URLBuilder("randomRecipes", urlParam, customAPIKey);
+  const url = URLBuilder("randomRecipes", { urlParam, customAPIKey });
 
   expect(url).toBe(expectedURL);
 });
@@ -56,7 +59,8 @@ it("should return invalid endpoint", () => {
   };
   const expectedURL = "Invalid Endpoint!";
 
-  const url = URLBuilder("random", urlParam, customAPIKey);
+  // @ts-ignore because it is intended
+  const url = URLBuilder("random", { urlParam, customAPIKey });
 
   expect(url).toBe(expectedURL);
 });

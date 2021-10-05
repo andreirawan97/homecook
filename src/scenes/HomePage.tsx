@@ -37,7 +37,7 @@ export default function HomePage() {
       number: 8,
     };
 
-    axios.get(URLBuilder("randomRecipes", urlParam)).then((res) => {
+    axios.get(URLBuilder("randomRecipes", { urlParam })).then((res) => {
       const data = res.data as RandomRecipesResponse;
       setRandomRecipesData(data.recipes);
       setLoadingRandomRecipes(false);

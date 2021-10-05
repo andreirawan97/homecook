@@ -1,11 +1,14 @@
 import { API_KEY, BASE_URL, Endpoint, URLParam } from "../constants/api";
 
-export function URLBuilder(
-  endpoint: Endpoint,
-  urlParam?: URLParam,
-  customAPIKey?: string,
-  recipeId?: string // For recipeDetail
-) {
+type URLBuilderOption = {
+  urlParam?: URLParam;
+  customAPIKey?: string;
+  recipeIdForRecipeDetail?: string;
+};
+
+export function URLBuilder(endpoint: Endpoint, option: URLBuilderOption) {
+  const { urlParam, customAPIKey, recipeIdForRecipeDetail } = option;
+
   let url = `${BASE_URL}`;
   const USED_API_KEY = customAPIKey ? customAPIKey : API_KEY;
 
@@ -15,7 +18,7 @@ export function URLBuilder(
       break;
     }
     case "recipeDetail": {
-      url += `recipes/${recipeId}/information?apiKey=${USED_API_KEY}`;
+      url += `recipes/${recipeIdForRecipeDetail}/information?apiKey=${USED_API_KEY}`;
       break;
     }
     case "search": {
